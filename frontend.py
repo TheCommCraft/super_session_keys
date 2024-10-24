@@ -29,13 +29,13 @@ def _get_data(data_id, key):
 
 def create_key():
     key_data, key, data_id, auth_key = _gen_data()
-    key_data = {"key_data": b64encode(key_data), "data_id": b64encode(data_id), "auth_key": b64encode(auth_key), "data_type": "keyv1"}
+    key_data = {"key_data": b64encode(key_data).decode("utf-8"), "data_id": b64encode(data_id).decode("utf-8"), "auth_key": b64encode(auth_key).decode("utf-8"), "data_type": "keyv1"}
     return b64encode(json.dumps(key_data).encode("utf-8"))
 
 def _load_key(key):
     key_data = json.loads(b64decode(key))
     assert key_data["data_type"] == "keyv1"
-    return (key := b64decode(key_data["key_data"])), Fernet(key), b64decode(key_data["data_id"]), b64decode(key_data["auth_key"])
+    return (key := b64decode(key_data["key_data"].encode("utf-8"))), Fernet(key), b64decode(key_data["data_id"].encode("utf-8")), b64decode(key_data["auth_key"].encode("utf-8"))
 
 def set_data(key, data):
     key_data, key, data_id, auth_key = _load_key(key)
