@@ -58,16 +58,16 @@ def get_data(data_id):
 
 @app.get("/")
 def retrieve_data():
-    data = request.json
+    try:
+        data = request.json
+    except Exception:
+        return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
     return jsonify({"data": get_data(data_id)})
 
 @app.post("/")
 def set_data():
-    if request.data:
-        data = request.json
-    else:
-        return redirect("https://github.com/TheCommCraft/super_session_keys/")
+    data = request.json
     data_id = data["data_id"]
     auth_key = data["auth_key"]
     data = data["data"]
