@@ -18,7 +18,7 @@ def _gen_data():
     auth_key = hashed_key[16:]
     return key_data, key, data_id, auth_key
 
-URL = ""
+URL = "https://securesessions.thecommcraft.de/"
 
 def _set_data(data_id, data, auth_key, key):
     encrypted_data = _encrypt_data(data, key)
@@ -40,6 +40,10 @@ def _load_key(key):
 def set_data(key, data):
     key_data, key, data_id, auth_key = _load_key(key)
     return _set_data(data_id, data, auth_key, key)
+
+def set_url(url):
+    global URL
+    URL = url
 
 def get_data(key):
     key_data, key, data_id, auth_key = _load_key(key)
