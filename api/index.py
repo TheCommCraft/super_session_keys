@@ -64,9 +64,9 @@ def retrieve_data():
 
 @app.post("/")
 def set_data():
-    try:
+    if request.data:
         data = request.json
-    except Exception:
+    else:
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
     auth_key = data["auth_key"]
