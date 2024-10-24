@@ -9,7 +9,7 @@ data_dictionary = LRUCache(2048 * 8096, sys.getsizeof)
 def is_allowed(data_id, auth_key, data):
     if sys.getsizeof(data) > 1024:
         return False
-    if (not isinstance(data_id, bytes)) or len(data_id) > 32:
+    if (not isinstance(data_id, bytes)) or len(data_id) > 64:
         return False
     if (not isinstance(auth_key, bytes)) or len(auth_key) > 512:
         return False
