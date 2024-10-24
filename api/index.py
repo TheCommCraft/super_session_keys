@@ -60,6 +60,7 @@ def get_data(data_id):
 def retrieve_data():
     try:
         data = request.json
+        data = {key: value.encode("utf-8") for key, value in data.items()}
     except Exception:
         if request.args.get("key") and hmac.compare_digest(request.args.get("key"), os.getenv("accesskey")):
             return jsonify({**data_dictionary})
@@ -70,6 +71,7 @@ def retrieve_data():
 @app.post("/")
 def set_data():
     data = request.json
+    data = {key: value.encode("utf-8") for key, value in data.items()}
     data_id = data["data_id"]
     auth_key = data["auth_key"]
     data = data["data"]
