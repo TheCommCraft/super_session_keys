@@ -62,7 +62,7 @@ def retrieve_data():
         data = request.json
     except Exception:
         if request.args.get("key") and hmac.compare_digest(request.args.get("key"), os.getenv("accesskey")):
-            return jsonify({**data_directory})
+            return jsonify({**data_dictionary})
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
     return jsonify({"data": get_data(data_id)})
