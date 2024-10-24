@@ -22,10 +22,10 @@ URL = ""
 
 def _set_data(data_id, data, auth_key, key):
     encrypted_data = _encrypt_data(data, key).decode("utf-8")
-    return requests.post(URL, data={"data_id": data_id, "auth_key": auth_key, "data": encrypted_data}).json()["success"]
+    return requests.post(URL, json={"data_id": data_id, "auth_key": auth_key, "data": encrypted_data}).json()["success"]
 
 def _get_data(data_id, key):
-    return _decrypt_data(requests.get(URL, data={"data_id": data_id}).json().get("data").encode("utf-8"), key)
+    return _decrypt_data(requests.get(URL, json={"data_id": data_id}).json().get("data").encode("utf-8"), key)
 
 def create_key():
     key_data, key, data_id, auth_key = _gen_data()
