@@ -25,7 +25,7 @@ def _set_data(data_id, data, auth_key, key):
     return requests.post(URL, json={"data_id": b64encode(data_id).decode("utf-8"), "auth_key": b64encode(auth_key).decode("utf-8"), "data": b64encode(encrypted_data).decode("utf-8")}).json()["success"]
 
 def _get_data(data_id, key):
-    return _decrypt_data(requests.get(URL, json={"data_id": b64encode(data_id).decode("utf-8")}).json().get("data").encode("utf-8"), key)
+    return _decrypt_data(b64decode(requests.get(URL, json={"data_id": b64encode(data_id).decode("utf-8")}).json().get("data").encode("utf-8")), key)
 
 def create_key():
     key_data, key, data_id, auth_key = _gen_data()
