@@ -21,7 +21,7 @@ def _gen_data():
 URL = ""
 
 def _set_data(data_id, data, auth_key, key):
-    encrypted_data = _encrypt_data(data, key).decode("utf-8")
+    encrypted_data = _encrypt_data(data, key)
     return requests.post(URL, json={"data_id": b64encode(data_id).decode("utf-8"), "auth_key": b64encode(auth_key).decode("utf-8"), "data": b64encode(encrypted_data).decode("utf-8")}).json()["success"]
 
 def _get_data(data_id, key):
