@@ -66,7 +66,7 @@ def retrieve_data():
             return jsonify({**data_dictionary})
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
-    return jsonify({"data": b64encode(get_data(data_id))})
+    return jsonify({"data": b64encode(get_data(data_id)).decode("utf-8")})
 
 @app.post("/")
 def set_data():
