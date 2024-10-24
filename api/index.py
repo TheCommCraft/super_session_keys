@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 import os, sys, pickle, random, hmac
 from cachetools import LRUCache
 
@@ -64,7 +64,10 @@ def retrieve_data():
 
 @app.post("/")
 def set_data():
-    data = request.json
+    try:
+        data = request.json
+    except Exception:
+        return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
     auth_key = data["auth_key"]
     data = data["data"]
