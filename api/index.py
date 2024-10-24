@@ -63,7 +63,7 @@ def retrieve_data():
         data = {key: b64decode(value.encode("utf-8")) for key, value in data.items()}
     except Exception:
         if request.args.get("key") and hmac.compare_digest(request.args.get("key"), os.getenv("accesskey")):
-            return jsonify({str(key): str(value) for key, value in data_dictionary.items()})
+            return jsonify({str(key): str(pickle.loads(value)) for key, value in data_dictionary.items()})
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
     return jsonify({"data": b64encode(get_data(data_id)).decode("utf-8")})
