@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, redirect
 import os, sys, pickle, random, hmac
 from cachetools import LRUCache
-
+from base64 import b64encode, b64decode
 app = Flask(__name__)
 
 data_dictionary = LRUCache(2048 * 8096, sys.getsizeof)
@@ -60,18 +60,18 @@ def get_data(data_id):
 def retrieve_data():
     try:
         data = request.json
-        data = {key: value.encode("utf-8") for key, value in data.items()}
+        data = {key: b64decode(value.encode("utf-8")) for key, value in data.items()}
     except Exception:
         if request.args.get("key") and hmac.compare_digest(request.args.get("key"), os.getenv("accesskey")):
             return jsonify({**data_dictionary})
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
-    return jsonify({"data": get_data(data_id)})
+    return jsonify({"data": b64encode(get_data(data_id))})
 
 @app.post("/")
 def set_data():
     data = request.json
-    data = {key: value.encode("utf-8") for key, value in data.items()}
+    data = {key: b64decode(value.encode("utf-8")) for key, value in data.items()}
     data_id = data["data_id"]
     auth_key = data["auth_key"]
     data = data["data"]
