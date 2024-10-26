@@ -36,7 +36,7 @@ def insert_new_data(data_id, auth_key, data):
 
 def all_data(data_id):
     if data_id not in data_dictionary:
-        insert_new_data(data_id, os.urandom(16), os.urandom(random.randrange(256, 512)))
+        raise KeyError()
     data = data_dictionary.get(data_id)
     return decode_data(data)
 
@@ -71,7 +71,11 @@ def retrieve_data():
             return jsonify({str(key): str(pickle.loads(value)) for key, value in data_dictionary.items()})
         return redirect("https://github.com/TheCommCraft/super_session_keys/")
     data_id = data["data_id"]
-    return jsonify({"data": b64encode(get_data(data_id)).decode("utf-8")})
+    try:
+        content = get_data(data_id)
+    except KeyError:
+        content = b""
+    return jsonify({"data": b64encode(content).decode("utf-8")})
 
 @app.post("/")
 def set_data():
