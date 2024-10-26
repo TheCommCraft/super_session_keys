@@ -10,7 +10,7 @@ from typing import Any, Optional, Self
 from collections.abc import Iterator
 import json
 from attrs import define, field
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 import requests
 
 thread_data = local()
@@ -142,7 +142,10 @@ def _get_data(data_id : bytes, key : Fernet, url : Optional[str] = None) -> str:
     url = url or _get_url()
     request_data = {"data_id": b64encode(data_id).decode("utf-8")}
     data = requests.get(url, timeout=5, json=request_data).json().get("data").encode("utf-8")
-    return _decrypt_data(b64decode(data), key)
+    try:
+        return _decrypt_data(b64decode(data), key)
+    except InvalidToken:
+        raise KeyError("Key doesn't exist.") from None
 
 def _get_url() -> str:
     """
