@@ -1,8 +1,13 @@
 from flask import Flask, request, jsonify, redirect
 import os, sys, pickle, random, hmac
 from cachetools import LRUCache
-from base64 import b64encode, b64decode
+from base64 import urlsafe_b64encode, urlsafe_b64decode
+
 app = Flask(__name__)
+
+
+b64encode = urlsafe_b64encode
+b64decode = urlsafe_b64decode
 
 data_dictionary = LRUCache(2048 * 8096, sys.getsizeof)
 
