@@ -1,10 +1,9 @@
 from setuptools import setup, find_packages
-import os
 
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
-    
-VERSION = '0.2.1'
+
+VERSION = '1.1.1'
 
 setup(
     name='super_session_keys',
