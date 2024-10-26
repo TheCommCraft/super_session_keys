@@ -68,7 +68,7 @@ def _get_url() -> str:
 def get_data(key : bytes) -> str:
     key_data, key, data_id, auth_key = _load_key(key)
     return _get_data(data_id, key)
-    
+
 @contextmanager
 def use_url(url):
     previous_url = _get_url()
