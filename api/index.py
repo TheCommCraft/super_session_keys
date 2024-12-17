@@ -89,5 +89,5 @@ def set_data():
 @app.get("/testtime/<t>/")
 def testtime(t):
     if t == "secretdata":
-        return jsonify(true)
-    return jsonify(false)
+        return jsonify(True)
+    return jsonify(False)
