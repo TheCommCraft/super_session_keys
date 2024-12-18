@@ -86,8 +86,3 @@ def set_data():
     data = data["data"]
     return jsonify({"success": post_data(data_id, auth_key, data)})
 
-@app.get("/testtime/<t>/")
-def testtime(t):
-    if t == "secretdata":
-        return jsonify(True)
-    return jsonify(False)
