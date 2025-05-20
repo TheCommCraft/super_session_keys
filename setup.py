@@ -3,13 +3,13 @@ from setuptools import setup, find_packages
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
-VERSION = '1.1.2'
+VERSION = '1.1.3'
 
 setup(
     name='super_session_keys',
     version=VERSION,
     author='TheCommCraft',
-    author_email='simon.c.gilde@gmail.com',
+    author_email='tcc@thecommcraft.de',
     description='A python module for super session keys',
     long_description=long_description,
     long_description_content_type='text/markdown',
